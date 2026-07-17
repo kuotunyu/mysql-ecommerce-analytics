@@ -1,0 +1,4 @@
+﻿cluster,name,n_customers,pct_customers,avg_recency_days,med_recency_days,avg_frequency,avg_monetary,med_monetary,pct_gmv
+0,近期低消費,35813,39.5,146.0,146.0,1.0,69.5,66.31,17.1
+2,中期高消費,27815,30.7,175.0,171.0,1.0,319.94,212.02,61.1
+1,流失中消費,26929,29.7,425.0,417.0,1.0,117.63,97.52,21.8

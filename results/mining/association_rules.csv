@@ -1,0 +1,12 @@
+﻿antecedents,consequents,n_orders,support,confidence,lift
+perfumery,health_beauty,11,0.0141,0.407,4.48
+home_confort,bed_bath_table,43,0.05513,0.86,3.3
+toys,baby,19,0.02436,0.373,3.12
+cool_stuff,baby,20,0.02564,0.299,2.5
+construction_tools_lights,furniture_decor,11,0.0141,0.611,2.34
+health_beauty,sports_leisure,14,0.01795,0.197,2.14
+home_construction,furniture_decor,13,0.01667,0.5,1.91
+(uncategorized),housewares,14,0.01795,0.233,1.57
+bed_bath_table,furniture_decor,70,0.08974,0.345,1.32
+garden_tools,housewares,11,0.0141,0.155,1.04
+sports_leisure,housewares,11,0.0141,0.153,1.03
