@@ -1,0 +1,62 @@
+{
+  "product_category_name_translation": {
+    "csv_rows": 71,
+    "cleaned_rows": 71,
+    "delta_note": "",
+    "warnings": 0
+  },
+  "customers": {
+    "csv_rows": 99441,
+    "cleaned_rows": 99441,
+    "delta_note": "",
+    "warnings": 0
+  },
+  "sellers": {
+    "csv_rows": 3095,
+    "cleaned_rows": 3095,
+    "delta_note": "",
+    "warnings": 0
+  },
+  "geolocation": {
+    "csv_rows": 1000163,
+    "cleaned_rows": 738332,
+    "delta_note": "五欄完全重複列去重 (-261,831)",
+    "warnings": 1469386
+  },
+  "products": {
+    "csv_rows": 32951,
+    "cleaned_rows": 32951,
+    "delta_note": "",
+    "warnings": 0
+  },
+  "orders": {
+    "csv_rows": 99441,
+    "cleaned_rows": 99441,
+    "delta_note": "",
+    "warnings": 0
+  },
+  "order_items": {
+    "csv_rows": 112650,
+    "cleaned_rows": 112650,
+    "delta_note": "",
+    "warnings": 0
+  },
+  "order_payments": {
+    "csv_rows": 103886,
+    "cleaned_rows": 103886,
+    "delta_note": "",
+    "warnings": 0
+  },
+  "order_reviews": {
+    "csv_rows": 99224,
+    "cleaned_rows": 99224,
+    "delta_note": "保留重複 review_id（複合 PK）",
+    "warnings": 0
+  },
+  "geolocation_zip": {
+    "csv_rows": null,
+    "cleaned_rows": 19011,
+    "delta_note": "衍生：bbox 過濾+每 zip 聚合",
+    "warnings": 0
+  }
+}

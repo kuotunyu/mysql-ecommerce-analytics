@@ -1,0 +1,5 @@
+# 防禦性設定：SQL 與 shell script 一律 LF（避免未來掛進 Linux 容器時 CRLF 出問題）
+* text=auto
+*.sql text eol=lf
+*.sh text eol=lf
+*.py text eol=lf

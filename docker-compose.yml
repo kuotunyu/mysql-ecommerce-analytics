@@ -1,0 +1,45 @@
+# mysql-ecommerce-analytics — Stage 1 基礎設施
+# 變數來自同目錄 .env（compose 只取用下方 ${...} 引用到的變數，
+# .env 內其他專案的 keys 不會進入任何容器——因此禁用 env_file: 整檔灌入）。
+services:
+  mysql:
+    image: mysql:8.4            # 鎖 LTS 版求可重現（浮動 tag mysql:8 不用）
+    container_name: olist-mysql
+    # 用 command 參數而非 config file bind mount：
+    # Windows 掛載的檔案在容器內常變 world-writable，MySQL 會默默忽略該 config。
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+      - --local-infile=1        # server 端允許 LOAD DATA LOCAL（client 端另需各自開啟）
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql   # named volume，存於 Docker Desktop 的 WSL2 VM 內
+    # 無密碼 healthcheck：mysqladmin ping 只要 server 活著就回 exit 0
+    # （官方文件明載 Access denied 也算 0）——語意正確且密碼完全不進 config/ps。
+    # -h 127.0.0.1 強制走 TCP，避開初始化階段 --skip-networking 臨時 server 的假健康。
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s         # 首次初始化 datadir 較久
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:5
+    container_name: olist-adminer
+    ports:
+      - "${ADMINER_PORT:-8080}:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mysql_data:

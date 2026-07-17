@@ -1,0 +1,25 @@
+# --- secrets ---
+.env
+
+# --- data（Kaggle 原始檔不入 git）---
+data/raw/
+!data/raw/.gitkeep
+*.zip
+
+# --- Python ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- 雜項輸出 ---
+*.log
