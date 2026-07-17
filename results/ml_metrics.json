@@ -1,0 +1,166 @@
+{
+  "split": [
+    {
+      "split": "train",
+      "months": "2016-09~2018-04",
+      "rows": 71118,
+      "share": 0.7372,
+      "late_rate": 0.0762
+    },
+    {
+      "split": "val",
+      "months": "2018-05~2018-05",
+      "rows": 6749,
+      "share": 0.07,
+      "late_rate": 0.0656
+    },
+    {
+      "split": "test",
+      "months": "2018-06~2018-08",
+      "rows": 18603,
+      "share": 0.1928,
+      "late_rate": 0.0361
+    }
+  ],
+  "test_prevalence": 0.0361,
+  "best_iteration": 68,
+  "threshold_val_maxf1": 0.0642,
+  "results": [
+    {
+      "name": "LightGBM",
+      "auc": 0.7495,
+      "pr_auc": 0.0897,
+      "tn": 13319,
+      "fp": 4612,
+      "fn": 235,
+      "tp": 437,
+      "precision": 0.0866,
+      "recall": 0.6503,
+      "f1": 0.1528
+    },
+    {
+      "name": "Baseline A 全猜不遲到",
+      "auc": 0.5,
+      "pr_auc": 0.0361,
+      "tn": 17931,
+      "fp": 0,
+      "fn": 672,
+      "tp": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "note": "常數分數：AUC 恆 0.5、PR-AUC=盛行率"
+    },
+    {
+      "name": "Baseline B 跨州即遲到",
+      "auc": 0.4009,
+      "pr_auc": 0.0314,
+      "tn": 7121,
+      "fp": 10810,
+      "fn": 400,
+      "tp": 272,
+      "precision": 0.0245,
+      "recall": 0.4048,
+      "f1": 0.0463,
+      "note": "二值分數的 AUC = balanced accuracy"
+    },
+    {
+      "name": "Baseline C 賣家歷史遲到率單特徵",
+      "auc": 0.4996,
+      "pr_auc": 0.0367,
+      "note": "冷啟動 NULL 補訓練期晚到率（僅供排序）"
+    }
+  ],
+  "confusion_at_threshold": {
+    "tn": 13319,
+    "fp": 4612,
+    "fn": 235,
+    "tp": 437,
+    "precision": 0.0866,
+    "recall": 0.6503,
+    "f1": 0.1528
+  },
+  "confusion_at_0.5": {
+    "tn": 17931,
+    "fp": 0,
+    "fn": 672,
+    "tp": 0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+  },
+  "precision_at_top10pct": 0.107,
+  "monthly_auc": [
+    {
+      "ym": "2018-06",
+      "auc": 0.7919,
+      "n": 6096
+    },
+    {
+      "ym": "2018-07",
+      "auc": 0.6744,
+      "n": 6156
+    },
+    {
+      "ym": "2018-08",
+      "auc": 0.7009,
+      "n": 6351
+    }
+  ],
+  "censoring_by_month": [
+    {
+      "ym": "2018-03",
+      "n_orders": 7211,
+      "excluded_pct": 2.88
+    },
+    {
+      "ym": "2018-04",
+      "n_orders": 6939,
+      "excluded_pct": 2.03
+    },
+    {
+      "ym": "2018-05",
+      "n_orders": 6873,
+      "excluded_pct": 1.8
+    },
+    {
+      "ym": "2018-06",
+      "n_orders": 6167,
+      "excluded_pct": 1.15
+    },
+    {
+      "ym": "2018-07",
+      "n_orders": 6292,
+      "excluded_pct": 2.16
+    },
+    {
+      "ym": "2018-08",
+      "n_orders": 6512,
+      "excluded_pct": 2.47
+    },
+    {
+      "ym": "2018-09",
+      "n_orders": 16,
+      "excluded_pct": 100.0
+    },
+    {
+      "ym": "2018-10",
+      "n_orders": 4,
+      "excluded_pct": 100.0
+    }
+  ],
+  "params": {
+    "objective": "binary",
+    "n_estimators": "2000",
+    "learning_rate": "0.05",
+    "num_leaves": "63",
+    "min_child_samples": "50",
+    "colsample_bytree": "0.9",
+    "subsample": "0.9",
+    "subsample_freq": "1",
+    "reg_lambda": "1.0",
+    "random_state": "42",
+    "force_row_wise": "True",
+    "verbose": "-1"
+  }
+}
