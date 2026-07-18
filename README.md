@@ -181,5 +181,6 @@ erDiagram
 
 ## 文件索引
 
+[docs/STATUS.md](docs/STATUS.md)（**進度總帳，回來先看這份**）｜
 [docs/PLAN.md](docs/PLAN.md)（Stage A 藍圖）｜[docs/PLAN_B.md](docs/PLAN_B.md)｜
 [docs/PLAN_C.md](docs/PLAN_C.md)｜[docs/OPERATIONS.md](docs/OPERATIONS.md)（開關機手冊）

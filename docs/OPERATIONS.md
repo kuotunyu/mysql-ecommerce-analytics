@@ -1,6 +1,6 @@
 # 操作手冊：開啟／關閉這個專案
 
-每次回來，照這份做，不用重新問。所有指令都在 **PowerShell**、且先切到專案資料夾再打：
+每次回來，照這份做，不用重新問。**進度與待辦看 [STATUS.md](STATUS.md)。**所有指令都在 **PowerShell**、且先切到專案資料夾再打：
 
 ```powershell
 cd "C:\Users\3Hml\Desktop\CC_github部隊\SQL\1_電商分析倉庫_Olist巴西電商_MySQL×探勘×ML"
