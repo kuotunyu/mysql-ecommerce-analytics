@@ -5,7 +5,7 @@
 
 ## Context（背景與目標）
 
-在 `C:\Users\3Hml\Desktop\CC_github部隊\SQL\1_電商分析倉庫_Olist巴西電商_MySQL×探勘×ML\`
+在本資料夾
 （**此資料夾即專案根**）建立專案 **mysql-ecommerce-analytics** 的 Stage 1：把 Kaggle 的
 [olistbr/brazilian-ecommerce](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 （9 個 CSV、約 155 萬列）建成正規化 MySQL 8 倉庫。後續 Stage B（SQL 分析）、Stage C（ML）
@@ -26,7 +26,7 @@
 ## 使用者已決定事項
 
 - 專案檔案直接放目前資料夾（即專案根）；`mysql-ecommerce-analytics` 為 README/GitHub 專案名。
-- Kaggle：使用者自行產生 kaggle.json 放 `C:\Users\3Hml\.kaggle\`。
+- Kaggle：使用者自行產生 kaggle.json 放 `~/.kaggle/`（Windows 為 `%USERPROFILE%\.kaggle\`）。
 - `.env`：MySQL 變數**附加**到現有檔案，原內容一字不動。
 - README：正體中文為主，專有名詞用原文。
 - DB 密碼：實作時隨機產生寫入 `.env`（**只用英數字元**，避免 `$` 等符號干擾 compose 插值與

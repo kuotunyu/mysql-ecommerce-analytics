@@ -9,7 +9,7 @@
 - 母體：delivered 且有送達時間且無時間倒置 = **96,470**；晚到率 6.8%。
 - 多賣家訂單僅 **1.3%**（1,278 筆；2 賣家 1,219、3+ 賣家 59）→ 主賣家法成立。
 - 缺重量訂單僅 16 筆 → NULL 讓 LightGBM 原生處理。
-- 環境：gh CLI 已登入（tun0000）、`make` 不存在（Makefile 交付給 GitHub 讀者，
+- 環境：gh CLI 已登入、`make` 不存在（Makefile 交付給 GitHub 讀者，
   本機以等效指令逐條驗證）、lightgbm 4.6 + shap 0.52 已入依賴。
 
 ## ml/features.sql（多段 CTE → 實體表 ml_features）

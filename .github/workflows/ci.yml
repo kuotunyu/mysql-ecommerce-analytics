@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: DB-free unit tests (Python 3.12)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Install locked dependencies
+        run: uv sync --frozen
+      - name: Byte-compile every script
+        run: uv run python -m compileall -q etl mining ml scripts
+      - name: Pytest (no MySQL, no Kaggle download)
+        run: uv run --with pytest python -m pytest

@@ -15,3 +15,8 @@ dependencies = [
     "shap>=0.52.0",
     "tabulate>=0.10.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
