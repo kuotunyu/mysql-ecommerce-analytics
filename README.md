@@ -181,5 +181,4 @@ erDiagram
 
 ## 文件索引
 
-[docs/PLAN_B.md](docs/PLAN_B.md)｜
-[docs/PLAN_C.md](docs/PLAN_C.md)｜[docs/OPERATIONS.md](docs/OPERATIONS.md)（開關機手冊）
+[docs/OPERATIONS.md](docs/OPERATIONS.md)（開關機手冊）
