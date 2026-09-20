@@ -71,5 +71,5 @@ topics 無法在 create 時給，必須用第二行的 `gh repo edit`。）
 ## 專案現況
 
 Stage A（倉庫）、B（SQL 分析＋探勘）、C（ML＋收尾）皆已完成。
-藍圖見 [PLAN.md](PLAN.md) / [PLAN_B.md](PLAN_B.md) / [PLAN_C.md](PLAN_C.md)，
+藍圖見 [PLAN_B.md](PLAN_B.md) / [PLAN_C.md](PLAN_C.md)，
 成果總覽見 [../README.md](../README.md)。

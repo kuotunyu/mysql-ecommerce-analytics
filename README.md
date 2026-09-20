@@ -32,7 +32,7 @@ flowchart LR
 
 | Stage | 內容 | 主要交付 |
 |---|---|---|
-| A 倉庫 | Docker MySQL 8.4、9 表 schema（6 條 FK 孤兒實測 0）、ETL 155 萬列 21.5 秒、核對表驗證 | [schema.sql](schema.sql)、[docs/PLAN.md](docs/PLAN.md) |
+| A 倉庫 | Docker MySQL 8.4、9 表 schema（6 條 FK 孤兒實測 0）、ETL 155 萬列 21.5 秒、核對表驗證 | [schema.sql](schema.sql) |
 | B 分析與探勘 | 十題 SQL（一題一檔）＋六主題深度報告（21 查詢/18 圖）＋索引實驗＋RFM 分群＋關聯規則 | [SQL_REPORT](results/SQL_REPORT.md)、[REPORT](reports/REPORT.md)、[INDEX_REPORT](results/INDEX_REPORT.md)、[ASSOCIATION_REPORT](results/mining/ASSOCIATION_REPORT.md) |
 | C 機器學習 | SQL 時點特徵（200 筆性質測試＋4 手工案例防洩漏，**驗證不過不准訓練**）、LightGBM vs 三 baseline、SHAP | [ML_REPORT](results/ML_REPORT.md)、[ml/](ml/) |
 
@@ -181,5 +181,5 @@ erDiagram
 
 ## 文件索引
 
-[docs/PLAN.md](docs/PLAN.md)（Stage A 藍圖）｜[docs/PLAN_B.md](docs/PLAN_B.md)｜
+[docs/PLAN_B.md](docs/PLAN_B.md)｜
 [docs/PLAN_C.md](docs/PLAN_C.md)｜[docs/OPERATIONS.md](docs/OPERATIONS.md)（開關機手冊）

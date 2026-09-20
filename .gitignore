@@ -23,3 +23,6 @@ Thumbs.db
 
 # --- 雜項輸出 ---
 *.log
+
+# --- agent 實作計畫（本機保留，不公開）---
+/docs/PLAN.md

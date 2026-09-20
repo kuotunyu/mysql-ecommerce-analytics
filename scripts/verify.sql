@@ -44,7 +44,7 @@ SELECT 'order_reviews.order_id -> orders', COUNT(*), 'FK'
 FROM order_reviews r LEFT JOIN orders o ON r.order_id = o.order_id
 WHERE o.order_id IS NULL
 UNION ALL
--- INFO 級：已知資料品質事實（允許 >0，僅記錄基線；數字對照 docs/PLAN.md 剖析）
+-- INFO 級：已知資料品質事實（允許 >0，僅記錄基線）
 SELECT 'INFO: customers.zip 無 geolocation_zip 對應（預期279=剖析278+1個僅境外座標zip）', COUNT(*), 'INFO'
 FROM customers c LEFT JOIN geolocation_zip g ON c.customer_zip_code_prefix = g.zip_code_prefix
 WHERE g.zip_code_prefix IS NULL

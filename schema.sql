@@ -5,7 +5,7 @@
 --        'MYSQL_PWD="$MYSQL_PASSWORD" mysql --default-character-set=utf8mb4
 --         -u"$MYSQL_USER" "$MYSQL_DATABASE"' < schema.sql
 --
--- 所有型別與約束皆依 data/raw 實測剖析定稿（2026-07-17，見 docs/PLAN.md）：
+-- 所有型別與約束皆依 data/raw 實測剖析定稿（2026-07-17）：
 --   * 所有業務 ID 實測為 32 字元小寫 hex → CHAR(32) ascii_bin（JOIN 熱點，
 --     ascii 讓索引鍵 1 byte/char，比 utf8mb4 小 4 倍；binary collation 最快）
 --   * zip 前綴實測三表全部恰為 5 位數字（含前導零，如 01037）→ CHAR(5) ascii

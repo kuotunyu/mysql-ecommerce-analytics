@@ -3,7 +3,7 @@
 用法：
     uv run python etl/load.py
 
-流程（詳見 docs/PLAN.md）：
+流程：
     1. TRUNCATE 全部表（冪等：重跑結果一致；僅此步驟暫關 FK 檢查，清空狀態無完整性風險）
     2. 依 FK 順序載入 9 張表（載入期間 FK 檢查全程開啟，引用完整性由 DB 當場把關）
     3. 由去重後的 geolocation 生成衍生彙總表 geolocation_zip
