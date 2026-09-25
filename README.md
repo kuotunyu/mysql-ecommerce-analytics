@@ -179,6 +179,3 @@ erDiagram
 （`scripts/fetch_data.py`，需自備 Kaggle API 憑證）；分析產出（圖表、聚合表、報告）
 屬衍生著作，沿用相同授權精神、僅供學習展示。
 
-## 文件索引
-
-[docs/OPERATIONS.md](docs/OPERATIONS.md)（開關機手冊）
