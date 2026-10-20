@@ -13,12 +13,15 @@
     * 一律 dtype=str 讀取：保留 zip 前導零、金額字串原樣過境到 DECIMAL（不經 float）、
       products 數值欄（原始即整數字串）不受浮點污染
     * 所有欄位 str.strip()
-    * 空字串 = NULL 語意：staging CSV 落地空字串，LOAD DATA 以 NULLIF(col,'') 轉 NULL
+    * 空字串 = NULL 語意（zip 欄除外，見下）：staging CSV 落地空字串，
+      LOAD DATA 以 NULLIF(col,'') 轉 NULL
       （不用 \\N 標記——它與反斜線跳脫互相衝突，故 LOAD DATA 採 ESCAPED BY ''；
         實測評論文字含反斜線 0 筆，但 quoting 相容性仍以 ESCAPED BY '' 為準）
     * 時間欄以 to_datetime(errors='raise') 驗證格式（異常直接炸出，不靜默 coerce），
       原字串已符合 MySQL DATETIME 格式，staging 原樣落地
-    * zip 欄 zfill(5)（實測本已全為 5 位，此為防禦性保險）
+    * zip 欄 zfill(5) 補前導零（實測本已全為 5 位，此為防禦性保險）；
+      strip 後為空字串者直接 raise——zip 為 CHAR(5) NOT NULL，空值無合法表示，
+      補零會得到 '00000' 這個無從與真實值區分的合成 zip，故不套用上述空字串=NULL
 
 逐表特例：
     * geolocation：五欄完全重複列去重（實測 1,000,163 → 738,332）；chunked 讀取
@@ -64,25 +67,40 @@ def _check_datetime(df: pd.DataFrame, cols: list[str]) -> None:
         pd.to_datetime(df[c].replace("", pd.NA), format=DT_FORMAT, errors="raise")
 
 
+def _zfill_zip(df: pd.DataFrame, col: str) -> pd.DataFrame:
+    """zip 欄補前導零；strip 後為空字串者直接 raise，不補零。
+    zip 三表皆 CHAR(5) NOT NULL（schema.sql），空值無合法表示，
+    且 ''.zfill(5) == '00000' 會產出看似正常的合成 zip（並與真實 '00000' 無從區分），
+    故在補零前當場擋下，不延後依賴 LOAD DATA 的警告語意。"""
+    blank = int(df[col].eq("").sum())
+    if blank:
+        raise ValueError(
+            f"{col}：{blank} 列 strip 後為空字串——zip 為 NOT NULL 契約，"
+            f"不可補零成 '00000' 合成值，中止載入"
+        )
+    df[col] = df[col].str.zfill(5)
+    return df
+
+
 def clean_translation(df):
     return _strip_all(df), None
 
 
 def clean_customers(df):
     df = _strip_all(df)
-    df["customer_zip_code_prefix"] = df["customer_zip_code_prefix"].str.zfill(5)
+    df = _zfill_zip(df, "customer_zip_code_prefix")
     return df, None
 
 
 def clean_sellers(df):
     df = _strip_all(df)
-    df["seller_zip_code_prefix"] = df["seller_zip_code_prefix"].str.zfill(5)
+    df = _zfill_zip(df, "seller_zip_code_prefix")
     return df, None
 
 
 def clean_geolocation(df):
     df = _strip_all(df)
-    df["geolocation_zip_code_prefix"] = df["geolocation_zip_code_prefix"].str.zfill(5)
+    df = _zfill_zip(df, "geolocation_zip_code_prefix")
     df = df.drop_duplicates()  # 去重差量的註記由 main 以「CSV 原始列數 - 最終列數」計算
     return df, None
 
