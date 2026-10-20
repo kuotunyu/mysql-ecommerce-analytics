@@ -13,11 +13,19 @@ from etl.load import (
     clean_geolocation,
     clean_order_reviews,
     clean_orders,
+    clean_sellers,
 )
 
 ORDER_DT_COLS = [
     "order_purchase_timestamp", "order_approved_at", "order_delivered_carrier_date",
     "order_delivered_customer_date", "order_estimated_delivery_date",
+]
+
+# The three cleaners that zero-pad a zip column, with that column's name.
+ZIP_CLEANERS = [
+    (clean_customers, "customer_zip_code_prefix"),
+    (clean_sellers, "seller_zip_code_prefix"),
+    (clean_geolocation, "geolocation_zip_code_prefix"),
 ]
 
 
@@ -27,6 +35,35 @@ def test_clean_customers_strips_and_zero_pads_zip():
     assert out.loc[0, "customer_id"] == "a"
     assert out.loc[0, "customer_zip_code_prefix"] == "01234"
     assert note is None
+
+
+@pytest.mark.parametrize("clean_fn, col", ZIP_CLEANERS)
+@pytest.mark.parametrize("blank", ["", "   ", "\t"])
+def test_zip_cleaners_reject_blank_zip(clean_fn, col, blank):
+    """A zip that is empty after strip() has no legal CHAR(5) NOT NULL value;
+    it must raise rather than be padded into the synthetic value "00000"."""
+    with pytest.raises(ValueError, match=col):
+        clean_fn(pd.DataFrame({col: [blank]}))
+
+
+def test_clean_customers_rejects_blank_zip_among_valid_rows():
+    df = pd.DataFrame({"customer_id": ["c1", "c2"],
+                       "customer_zip_code_prefix": ["01037", ""]})
+    with pytest.raises(ValueError, match="customer_zip_code_prefix"):
+        clean_customers(df)
+
+
+@pytest.mark.parametrize("clean_fn, col", ZIP_CLEANERS)
+@pytest.mark.parametrize("raw, expected", [
+    ("1234", "01234"),      # padding is preserved
+    (" 1234 ", "01234"),    # strip then pad
+    ("01037", "01037"),     # already 5 digits, untouched
+    ("9", "00009"),
+    ("00000", "00000"),     # a literal 00000 in the source stays loadable
+])
+def test_zip_cleaners_pad_nonblank_zip(clean_fn, col, raw, expected):
+    out, _ = clean_fn(pd.DataFrame({col: [raw]}))
+    assert out.loc[0, col] == expected
 
 
 def test_clean_orders_accepts_mysql_datetime_and_empty_as_null():
